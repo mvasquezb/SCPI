@@ -14,4 +14,7 @@ interface IOven : Persistable {
 
     @get:ManyToOne
     var operatorShift: IOperatorWorkShift
+
+    @get:OneToMany
+    var producedWagons: List<IWagon>
 }

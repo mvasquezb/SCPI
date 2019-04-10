@@ -1,16 +1,15 @@
 package com.pmvb.scpiback.data.models
 
-import io.requery.Entity
-import io.requery.Generated
-import io.requery.Key
-import io.requery.Persistable
+import io.requery.*
 
 @Entity
-interface IOperatorType : Persistable {
+interface IRole : Persistable {
     @get:Key
     @get:Generated
     val id: Int
 
     var name: String
-    var prefix: String
+    var description: String
+    @get:Column(nullable = true)
+    var prefix: String?
 }

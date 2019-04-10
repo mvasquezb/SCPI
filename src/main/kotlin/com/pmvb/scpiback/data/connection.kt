@@ -2,6 +2,7 @@ package com.pmvb.scpiback.data
 
 import com.mysql.cj.jdbc.MysqlDataSource
 import com.pmvb.scpiback.AppConfig
+import com.pmvb.scpiback.data.models.Models
 import io.requery.Persistable
 import io.requery.reactivex.KotlinReactiveEntityStore
 import io.requery.sql.KotlinConfiguration
@@ -30,6 +31,4 @@ val configuration = KotlinConfiguration(
     SchemaModifier(this).createTables(TableCreationMode.CREATE_NOT_EXISTS)
 }
 
-val dataStore: KotlinReactiveEntityStore<Persistable> by lazy {
-    KotlinReactiveEntityStore<Persistable>(KotlinEntityDataStore(configuration))
-}
+val dataStore = KotlinEntityDataStore<Persistable>(configuration)

@@ -26,5 +26,5 @@ interface IPieceClassification : Persistable {
     var pieceType: IPieceType
 
     @get:ManyToOne
-    var classifierOperator: IOperator
+    var classifierOperator: IUser
 }

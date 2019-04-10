@@ -1,7 +1,5 @@
 package com.pmvb.scpiback.data.models
 
-import com.pmvb.scpiback.data.models.IOperator
-import com.pmvb.scpiback.data.models.IWorkShift
 import io.requery.*
 
 @Entity
@@ -14,7 +12,7 @@ interface IOperatorWorkShift : Persistable {
     var code: String
 
     @get:ManyToOne
-    var operator: IOperator
+    var operator: IUser
 
     @get:ManyToOne
     var workShift: IWorkShift

@@ -19,13 +19,13 @@ interface IWagon : Persistable {
     var productionOven: IOven
 
     @get:ManyToOne
-    var coatOperator: IOperator
+    var coatOperator: IUser
 
     @get:ManyToOne
-    var castOperator: IOperator
+    var polishOperator: IUser
 
     @get:ManyToOne
-    var polishOperator: IOperator
+    var castOperator: IUser
 
     @get:ManyToOne
     var position: IWagonPosition
