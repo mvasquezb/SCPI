@@ -1,9 +1,9 @@
-package com.pmvb.scpiback.models
+package com.pmvb.scpiback.data.models
 
 import io.requery.*
 
 @Entity
-interface IPieceClassification {
+interface IPieceClassification : Persistable {
     @get:Key
     @get:Generated
     val id: Int

@@ -1,12 +1,9 @@
-package com.pmvb.scpiback.models
+package com.pmvb.scpiback.data.models
 
-import io.requery.Entity
-import io.requery.Generated
-import io.requery.Key
-import io.requery.ManyToOne
+import io.requery.*
 
 @Entity
-interface IPieceType {
+interface IPieceType : Persistable {
     @get:Key
     @get:Generated
     val id: Int

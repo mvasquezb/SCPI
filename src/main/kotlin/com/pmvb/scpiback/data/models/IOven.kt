@@ -1,9 +1,10 @@
-package com.pmvb.scpiback.models
+package com.pmvb.scpiback.data.models
 
+import com.pmvb.scpiback.data.models.IOperatorWorkShift
 import io.requery.*
 
 @Entity
-interface IOven {
+interface IOven : Persistable {
     @get:Key
     @get:Generated
     val id: Int

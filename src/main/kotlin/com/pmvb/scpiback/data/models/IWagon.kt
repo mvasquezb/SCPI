@@ -1,10 +1,10 @@
-package com.pmvb.scpiback.models
+package com.pmvb.scpiback.data.models
 
 import io.requery.*
 import java.util.*
 
 @Entity
-interface IWagon {
+interface IWagon : Persistable {
     @get:Key
     @get:Generated
     val id: Int

@@ -1,8 +1,9 @@
 package com.pmvb.scpiback
 
+import com.pmvb.scpiback.data.dataStore
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder.*
-import io.javalin.staticfiles.Location
+import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.put
 
 data class Todo(val id: Long = -1, val title: String = "", val completed: Boolean = false)
 
@@ -12,8 +13,7 @@ fun main(args: Array<String>) {
     todos = arrayOf(Todo(123123123, "My very first todo", false))
     val app = Javalin.create().apply {
         enableCorsForAllOrigins()
-        port(7000)
-        enableStaticFiles("src/web/public", Location.EXTERNAL)
+        port(AppConfig["WEB_PORT"].toString().toInt())
     }.start()
 
     routeSetup(app)
@@ -22,6 +22,7 @@ fun main(args: Array<String>) {
 fun routeSetup(app: Javalin) {
     app.routes {
         get("/todos") { ctx ->
+            dataStore
             ctx.json(todos)
         }
         put("/todos") { ctx ->
