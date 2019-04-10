@@ -35,6 +35,7 @@ dependencies {
     compile 'io.requery:requery:1.5.1'
     compile 'io.requery:requery-kotlin:1.5.1'
     kapt 'io.requery:requery-processor:1.5.1'
+    compile 'mysql:mysql-connector-java:8.0.15'
 }
 
 compileKotlin {
