@@ -1,9 +1,6 @@
 package com.pmvb.scpiback.data.models
 
-import io.requery.Entity
-import io.requery.Generated
-import io.requery.Key
-import io.requery.Persistable
+import io.requery.*
 
 @Entity
 interface IRepairType : Persistable {
@@ -12,4 +9,7 @@ interface IRepairType : Persistable {
     val id: Int
 
     var name: String
+
+    @get:Column(unique = true)
+    var code: String
 }

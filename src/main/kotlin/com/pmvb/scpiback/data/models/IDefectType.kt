@@ -13,5 +13,5 @@ interface IDefectType : Persistable {
     var name: String
 
     @get:ManyToOne
-    var productionArea: IProductionArea
+    var defectArea: IDefectArea
 }

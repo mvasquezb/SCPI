@@ -3,8 +3,12 @@ package com.pmvb.scpiback.data
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource
 import com.mysql.cj.jdbc.MysqlDataSource
 import com.pmvb.scpiback.AppConfig
+import com.pmvb.scpiback.data.models.Defect
+import com.pmvb.scpiback.data.models.DefectArea
 import com.pmvb.scpiback.data.models.Models
+import com.pmvb.scpiback.data.models.User
 import io.requery.Persistable
+import io.requery.kotlin.invoke
 import io.requery.sql.KotlinConfiguration
 import io.requery.sql.KotlinEntityDataStore
 import io.requery.sql.SchemaModifier
@@ -43,4 +47,6 @@ fun main(args: Array<String>) {
     println(AppConfig["DB_USERNAME"])
     println(AppConfig["DB_PASSWORD"])
     println(dataSource::class.java)
+    val result = dataStore.select(Defect::class)()
+    println(result)
 }

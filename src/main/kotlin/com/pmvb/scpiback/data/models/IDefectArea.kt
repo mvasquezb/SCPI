@@ -3,7 +3,7 @@ package com.pmvb.scpiback.data.models
 import io.requery.*
 
 @Entity
-interface IEvaluationType : Persistable {
+interface IDefectArea : Persistable {
     @get:Key
     @get:Generated
     val id: Int
