@@ -1,6 +1,7 @@
 package com.pmvb.scpiback.data.models
 
 import io.requery.*
+import org.springframework.security.crypto.bcrypt.BCrypt
 
 @Entity
 interface IUser : Persistable {
@@ -11,6 +12,7 @@ interface IUser : Persistable {
     @get:Column(unique = true)
     var code: String
     var name: String
+    var token: String
 
     @get:ManyToOne
     var factory: IFactory
@@ -21,13 +23,13 @@ interface IUser : Persistable {
     @get:Column(nullable = true)
     var password: String
 
-    @get:OneToMany
+    @get:OneToMany(mappedBy = "coatOperator")
     var coatedWagons: List<IWagon>
 
-    @get:OneToMany
+    @get:OneToMany(mappedBy = "polishOperator")
     var polishedWagons: List<IWagon>
 
-    @get:OneToMany
+    @get:OneToMany(mappedBy = "castOperator")
     var castedWagons: List<IWagon>
 }
 
@@ -35,5 +37,5 @@ interface IUser : Persistable {
  * Encrypts password before saving
  */
 fun IUser.setSafePassword(password: String) {
-    this.password = password
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt())
 }

@@ -17,7 +17,7 @@ interface IPieceClassification : Persistable {
     var productionWagon: IWagon
 
     @get:ManyToOne
-    var product: IProduct
+    var product: IProductModel
 
     @get:ManyToOne
     var qualityLevel: IQualityLevel

@@ -11,6 +11,4 @@ interface IProduct : Persistable {
     var name: String
     @get:ManyToOne
     var productModel: IProductModel
-    @get:ManyToOne
-    var color: IColor
 }

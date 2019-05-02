@@ -1,9 +1,8 @@
 package com.pmvb.scpiback
 
-import com.pmvb.scpiback.data.dataStore
+import com.pmvb.scpiback.data.Connection
+import com.pmvb.scpiback.router.routeSetup
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder.get
-import io.javalin.apibuilder.ApiBuilder.put
 
 data class Todo(val id: Long = -1, val title: String = "", val completed: Boolean = false)
 
@@ -17,17 +16,5 @@ fun main(args: Array<String>) {
     }.start()
 
     routeSetup(app)
-}
-
-fun routeSetup(app: Javalin) {
-    app.routes {
-        get("/todos") { ctx ->
-            dataStore
-            ctx.json(todos)
-        }
-        put("/todos") { ctx ->
-            todos = ctx.bodyAsClass(Array<Todo>::class.java)
-            ctx.status(204)
-        }
-    }
+    Connection.setup()
 }

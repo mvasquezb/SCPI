@@ -10,5 +10,5 @@ interface IPieceType : Persistable {
 
     var name: String
     @get:ManyToOne
-    var product: IProduct
+    var product: IProductModel
 }
