@@ -1,7 +1,0 @@
-
-[submodule "src/main/resources/public/web"]
-	path = src/main/resources/web/
-	url = https://github.com/mvasquezb/SCPI-front
-[submodule "src/main/resources/web"]
-	path = src/main/resources/web
-	url = https://github.com/mvasquezb/SCPI-front
