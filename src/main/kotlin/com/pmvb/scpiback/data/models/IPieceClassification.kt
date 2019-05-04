@@ -23,8 +23,8 @@ interface IPieceClassification : Persistable {
     var qualityLevel: IQualityLevel
 
     @get:ManyToOne
-    var pieceType: IPieceType
+    var classifierOperator: IUser
 
     @get:ManyToOne
-    var classifierOperator: IUser
+    var color: IColor
 }

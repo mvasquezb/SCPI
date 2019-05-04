@@ -1,6 +1,5 @@
 package com.pmvb.scpiback.data.models
 
-import com.pmvb.scpiback.data.models.IPieceType
 import io.requery.*
 
 @Entity
@@ -13,7 +12,4 @@ interface IPieceZone : Persistable {
     var code: String
 
     var name: String
-
-    @get:ManyToOne
-    var pieceType: IPieceType
 }
