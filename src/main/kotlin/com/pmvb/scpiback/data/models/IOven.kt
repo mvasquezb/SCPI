@@ -12,8 +12,6 @@ interface IOven : Persistable {
     @get:Column(unique = true)
     var code: String
 
-
-
     @get:OneToMany
     var producedWagons: List<IWagon>
 }
