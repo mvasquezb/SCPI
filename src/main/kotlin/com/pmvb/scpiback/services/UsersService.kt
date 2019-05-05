@@ -48,4 +48,18 @@ object UsersService {
     fun getRoles(ctx: Context) {
         ctx.json(dataStore.select(Role::class)())
     }
+
+    fun getUser(ctx: Context) {
+        val userId = ctx.pathParam("user-id").toInt()
+        val user = dataStore.invoke {
+            val res = select (User::class) where (User::id eq userId)
+            res().firstOrNull()
+        }
+        if (user == null) {
+            ctx.json(mapOf("error" to "Usuario no encontrado"))
+            ctx.status(404)
+            return
+        }
+        ctx.json(user)
+    }
 }
