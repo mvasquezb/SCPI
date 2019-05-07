@@ -15,7 +15,18 @@ object QualityService {
     }
 
     fun getAllDefectAreas(ctx: Context) {
-        ctx.json(dataStore.select(DefectArea::class)())
+        var areas = dataStore.select(DefectArea::class)().toList()
+        val withoutEmpty = ctx.queryParamMap().containsKey("not-empty")
+        if (withoutEmpty) {
+            areas = areas.filter { area ->
+                val defectCount = dataStore.invoke {
+                    val res = count(DefectType::class) where (DefectType::defectArea eq area.id)
+                    res().value()
+                }
+                defectCount > 0
+            }
+        }
+        ctx.json(areas)
     }
 
     fun getAllDefectTypes(ctx: Context) {
