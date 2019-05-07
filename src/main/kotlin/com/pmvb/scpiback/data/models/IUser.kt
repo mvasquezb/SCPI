@@ -22,15 +22,6 @@ interface IUser : Persistable {
 
     @get:Column(nullable = true)
     var password: String
-
-    @get:OneToMany(mappedBy = "coatOperator")
-    var coatedWagons: List<IWagon>
-
-    @get:OneToMany(mappedBy = "polishOperator")
-    var polishedWagons: List<IWagon>
-
-    @get:OneToMany(mappedBy = "castOperator")
-    var castedWagons: List<IWagon>
 }
 
 /**

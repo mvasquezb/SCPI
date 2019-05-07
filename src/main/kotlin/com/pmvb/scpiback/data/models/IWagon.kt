@@ -1,9 +1,10 @@
 package com.pmvb.scpiback.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.requery.*
-import java.util.*
 
 @Entity
+@JsonIgnoreProperties("productionOven")
 interface IWagon : Persistable {
     @get:Key
     @get:Generated
@@ -12,21 +13,6 @@ interface IWagon : Persistable {
     @get:Column(unique = true)
     var code: String
 
-    @get:Column(nullable = true)
-    var castingDate: Date?
-
     @get:ManyToOne
     var productionOven: IOven
-
-    @get:ManyToOne
-    var coatOperator: IUser
-
-    @get:ManyToOne
-    var polishOperator: IUser
-
-    @get:ManyToOne
-    var castOperator: IUser
-
-    @get:ManyToOne
-    var position: IWagonPosition
 }

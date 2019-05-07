@@ -1,6 +1,7 @@
 package com.pmvb.scpiback.data.models
 
 import io.requery.*
+import java.util.*
 
 @Entity
 interface IPieceClassification : Persistable {
@@ -27,4 +28,19 @@ interface IPieceClassification : Persistable {
 
     @get:ManyToOne
     var color: IColor
+
+    @get:ManyToOne
+    var coatOperator: IUser
+
+    @get:ManyToOne
+    var polishOperator: IUser
+
+    @get:ManyToOne
+    var castOperator: IUser
+
+    @get:Column(nullable = true)
+    var castingDate: Date?
+
+    @get:ManyToOne
+    var wagonPosition: IWagonPosition
 }

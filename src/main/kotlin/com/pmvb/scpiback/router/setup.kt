@@ -1,9 +1,7 @@
 package com.pmvb.scpiback.router
 
 import com.pmvb.scpiback.Todo
-import com.pmvb.scpiback.services.ProductsService
-import com.pmvb.scpiback.services.UsersService
-import com.pmvb.scpiback.services.WorkShiftsService
+import com.pmvb.scpiback.services.*
 import com.pmvb.scpiback.todos
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder
@@ -42,5 +40,19 @@ fun routeSetup(app: Javalin) {
                 get("models", ProductsService::getModelsInFamily)
             }
         }
+        get("/colors", ProductsService::getAllProductColors)
+        get("/ovens", OvensService::getAllOvens)
+
+        get("/quality-levels", QualityService::getAllQualityLevels)
+        path("/defect-areas") {
+            get(QualityService::getAllDefectAreas)
+            path(":area-id") {
+                get("defects", QualityService::getDefectTypesForArea)
+            }
+        }
+        path("/defect-types") {
+            get(QualityService::getAllDefectTypes)
+        }
+        get("/piece-zones", QualityService::getAllPieceZones)
     }
 }

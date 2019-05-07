@@ -1,6 +1,7 @@
 package com.pmvb.scpiback.services
 
 import com.pmvb.scpiback.data.Connection.dataStore
+import com.pmvb.scpiback.data.models.Color
 import com.pmvb.scpiback.data.models.ProductFamily
 import com.pmvb.scpiback.data.models.ProductModel
 import io.javalin.Context
@@ -60,5 +61,9 @@ object ProductsService {
         }
 
         ctx.json(fam)
+    }
+
+    fun getAllProductColors(ctx: Context) {
+        ctx.json(dataStore.select(Color::class)())
     }
 }

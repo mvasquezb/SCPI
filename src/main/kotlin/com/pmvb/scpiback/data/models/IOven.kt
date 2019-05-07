@@ -1,5 +1,7 @@
 package com.pmvb.scpiback.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pmvb.scpiback.data.models.IOperatorWorkShift
 import io.requery.*
 
@@ -13,5 +15,5 @@ interface IOven : Persistable {
     var code: String
 
     @get:OneToMany
-    var producedWagons: List<IWagon>
+    var wagons: List<IWagon>
 }
