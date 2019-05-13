@@ -54,5 +54,7 @@ fun routeSetup(app: Javalin) {
             get(QualityService::getAllDefectTypes)
         }
         get("/piece-zones", QualityService::getAllPieceZones)
+        get("/repair-types", QualityService::getAllRepairTypes)
+        get("/evaluation-types", QualityService::getAllEvaluationTypes)
     }
 }

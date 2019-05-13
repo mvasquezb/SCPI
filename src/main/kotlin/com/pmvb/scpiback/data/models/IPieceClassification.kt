@@ -21,7 +21,10 @@ interface IPieceClassification : Persistable {
     var product: IProductModel
 
     @get:ManyToOne
-    var qualityLevel: IQualityLevel
+    var assignedQualityLevel: IQualityLevel
+
+    @get:ManyToOne
+    var systemQualityLevel: IQualityLevel
 
     @get:ManyToOne
     var classifierOperator: IUser

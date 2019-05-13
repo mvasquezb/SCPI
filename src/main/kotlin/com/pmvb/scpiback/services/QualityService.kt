@@ -1,10 +1,7 @@
 package com.pmvb.scpiback.services
 
 import com.pmvb.scpiback.data.Connection.dataStore
-import com.pmvb.scpiback.data.models.DefectArea
-import com.pmvb.scpiback.data.models.DefectType
-import com.pmvb.scpiback.data.models.PieceZone
-import com.pmvb.scpiback.data.models.QualityLevel
+import com.pmvb.scpiback.data.models.*
 import io.javalin.Context
 import io.requery.kotlin.eq
 import io.requery.kotlin.invoke
@@ -55,5 +52,13 @@ object QualityService {
 
     fun getAllPieceZones(ctx: Context) {
         ctx.json(dataStore.select(PieceZone::class)())
+    }
+
+    fun getAllRepairTypes(ctx: Context) {
+        ctx.json(dataStore.select(RepairType::class)())
+    }
+
+    fun getAllEvaluationTypes(ctx: Context) {
+        ctx.json(dataStore.select(EvaluationType::class)())
     }
 }

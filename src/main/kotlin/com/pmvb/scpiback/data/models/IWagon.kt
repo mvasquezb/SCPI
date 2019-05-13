@@ -15,4 +15,13 @@ interface IWagon : Persistable {
 
     @get:ManyToOne
     var productionOven: IOven
+
+    @get:ManyToOne
+    var coatOperator: IUser
+
+    @get:ManyToOne
+    var polishOperator: IUser
+
+    @get:ManyToOne
+    var castOperator: IUser
 }

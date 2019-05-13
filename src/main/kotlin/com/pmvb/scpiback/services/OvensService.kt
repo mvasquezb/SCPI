@@ -9,9 +9,10 @@ import io.requery.kotlin.eq
 object OvensService {
     fun getAllOvens(ctx: Context) {
         val ovens = dataStore.invoke {
-            val res = select(Oven::class)
-                    .join(Wagon::class) on (Oven::id eq Wagon::productionOven)
-            res.get().toMap(Oven.ID)
+            val res = (select(Oven::class)
+                    .join(Wagon::class) on (Oven::id eq Wagon::productionOven))
+                    .groupBy(Oven.ID)
+            res.get()
         }
         ctx.json(ovens)
     }
