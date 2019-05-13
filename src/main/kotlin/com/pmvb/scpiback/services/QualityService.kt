@@ -2,6 +2,7 @@ package com.pmvb.scpiback.services
 
 import com.pmvb.scpiback.data.Connection.dataStore
 import com.pmvb.scpiback.data.models.*
+import com.pmvb.scpies.ESTest
 import io.javalin.Context
 import io.requery.kotlin.eq
 import io.requery.kotlin.invoke
@@ -60,5 +61,9 @@ object QualityService {
 
     fun getAllEvaluationTypes(ctx: Context) {
         ctx.json(dataStore.select(EvaluationType::class)())
+    }
+
+    fun qualityCheck(ctx: Context) {
+        com.pmvb.scpies.test2("modules/es/src/main/kotlin/com/pmvb/scpies/rules.yml")
     }
 }

@@ -1,2 +1,3 @@
 rootProject.name = 'scpi-back'
-
+include ':scpi-es'
+project(':scpi-es').projectDir = new File("modules/es")
