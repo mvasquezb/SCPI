@@ -1,10 +1,7 @@
 package com.pmvb.scpiback.services
 
 import com.pmvb.scpiback.data.Connection.dataStore
-import com.pmvb.scpiback.data.models.IRole
-import com.pmvb.scpiback.data.models.Role
-import com.pmvb.scpiback.data.models.User
-import com.pmvb.scpiback.data.models.setSafePassword
+import com.pmvb.scpiback.data.models.*
 import io.javalin.Context
 import io.requery.kotlin.eq
 import io.requery.kotlin.invoke
@@ -42,7 +39,7 @@ object UsersService {
     }
 
     fun getAll(ctx: Context) {
-        ctx.json(dataStore.select(User::class)())
+        ctx.json(dataStore.select(IUser::class)())
     }
 
     fun getRoles(ctx: Context) {

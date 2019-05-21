@@ -12,6 +12,8 @@ interface IDefectType : Persistable {
     var code: String
     var name: String
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var defectArea: IDefectArea
+
+    var factName: String
 }

@@ -12,4 +12,6 @@ interface IPieceZone : Persistable {
     var code: String
 
     var name: String
+
+    var visible: Boolean
 }

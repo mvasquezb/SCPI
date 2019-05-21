@@ -1,22 +1,11 @@
 package com.pmvb.scpiback.router
 
-import com.pmvb.scpiback.Todo
 import com.pmvb.scpiback.services.*
-import com.pmvb.scpiback.todos
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder
 import io.javalin.apibuilder.ApiBuilder.*
-import org.eclipse.jetty.util.thread.strategy.ProduceConsume
 
 fun routeSetup(app: Javalin) {
     app.routes {
-        ApiBuilder.get("/todos") { ctx ->
-            ctx.json(todos)
-        }
-        ApiBuilder.put("/todos") { ctx ->
-            todos = ctx.bodyAsClass(Array<Todo>::class.java)
-            ctx.status(204)
-        }
         path("login") {
             post(UsersService::login)
         }
@@ -53,9 +42,23 @@ fun routeSetup(app: Javalin) {
         path("/defect-types") {
             get(QualityService::getAllDefectTypes)
         }
-        get("/piece-zones", QualityService::getAllPieceZones)
+        path("/piece-zones") {
+            get(QualityService::getAllPieceZones)
+            get(":product-family-id/:product-model-id", QualityService::getPieceZonesByProduct)
+        }
         get("/repair-types", QualityService::getAllRepairTypes)
         get("/evaluation-types", QualityService::getAllEvaluationTypes)
-        get("/quality-check", QualityService::qualityCheck)
+        post("/quality-check", QualityService::qualityCheck)
+        post("/classification", QualityService::saveClassification)
+        get("/classifications", QualityService::getAllClassifications)
+        path("rules") {
+            get(QualityService::getAllRules)
+            post(QualityService::addRule)
+            path(":rule-id") {
+                get(QualityService::getRuleById)
+                post(QualityService::updateRule)
+                delete(QualityService::deleteRule)
+            }
+        }
     }
 }

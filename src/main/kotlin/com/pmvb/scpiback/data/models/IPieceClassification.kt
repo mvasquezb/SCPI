@@ -1,9 +1,11 @@
 package com.pmvb.scpiback.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.requery.*
 import java.util.*
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 interface IPieceClassification : Persistable {
     @get:Key
     @get:Generated
@@ -14,36 +16,41 @@ interface IPieceClassification : Persistable {
 
     var quantity: Int
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var productionWagon: IWagon
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var product: IProductModel
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
+    @get:ForeignKey(update = ReferentialAction.NO_ACTION)
     var assignedQualityLevel: IQualityLevel
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
+    @get:ForeignKey(update = ReferentialAction.NO_ACTION)
     var systemQualityLevel: IQualityLevel
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var classifierOperator: IUser
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var color: IColor
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var coatOperator: IUser
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var polishOperator: IUser
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var castOperator: IUser
 
     @get:Column(nullable = true)
     var castingDate: Date?
 
-    @get:ManyToOne
-    var wagonPosition: IWagonPosition
+    @get:Column(nullable = true)
+    var wagonPosition: String?
+
+    @get:OneToMany
+    var defects: List<IDefect>
 }
