@@ -1,8 +1,10 @@
 package com.pmvb.scpiback.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.requery.*
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 interface IOperatorWorkShift : Persistable {
     @get:Key
     @get:Generated
@@ -11,9 +13,9 @@ interface IOperatorWorkShift : Persistable {
     @get:Column(unique = true)
     var code: String
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var operator: IUser
 
-    @get:ManyToOne
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
     var workShift: IWorkShift
 }

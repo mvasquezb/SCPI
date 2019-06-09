@@ -2,6 +2,7 @@ package com.pmvb.scpiback.services
 
 import com.pmvb.scpiback.data.Connection
 import com.pmvb.scpiback.data.Connection.dataStore
+import com.pmvb.scpiback.data.models.IWorkShift
 import com.pmvb.scpiback.data.models.OperatorWorkShift
 import com.pmvb.scpiback.data.models.User
 import com.pmvb.scpiback.data.models.WorkShift
@@ -34,5 +35,9 @@ object WorkShiftsService {
         }
         shift = dataStore.insert(shift)
         ctx.json(shift)
+    }
+
+    fun getShiftTypes(ctx: Context) {
+        ctx.json(dataStore.select(IWorkShift::class)())
     }
 }

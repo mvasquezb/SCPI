@@ -146,10 +146,12 @@ object QualityService {
 
         val factName = defect.defectType.factName
         val factNameParts = factName.split('_')
+
+        map[factName] = true
         if (!map.containsKey(factNameParts[0])) {
             map["NUM_${factNameParts[0]}"] = 1
         } else {
-            map["NUM_${factNameParts[0]}"] = (map["NUM_${factNameParts[0]}"] as Int) + 1
+            map["NUM_${factNameParts[0]}"] = ((map["NUM_${factNameParts[0]}"] ?: 0) as Int) + 1
         }
         map[factNameParts[0]] = true
         map["AREA_${factNameParts[0]}"] = defect.defectType.defectArea.name
@@ -161,12 +163,16 @@ object QualityService {
         map["${factNameParts[0]}_$visible"] = true
         if (factNameParts.size > 1) {
             val key = "${factNameParts[0]}_${factNameParts[1]}"
+            if (!map.containsKey("NUM_$key")) {
+                map["NUM_$key"] = 1
+            } else {
+                map["NUM_$key"] = (map["NUM_$key"] as Int) + 1
+            }
             map[key] = true
             map["${key}_$visible"] = true
             map["AREA_$key"] = defect.defectType.defectArea.name
             map["ZONA_$key"] = defect.affectedZone.name
             if (factNameParts.size > 2) {
-                map[factName] = true
                 map["${factName}_$visible"] = true
                 map["AREA_$factName"] = defect.defectType.defectArea.name
                 map["ZONA_$factName"] = defect.affectedZone.name
@@ -194,7 +200,6 @@ object QualityService {
 
     fun saveClassification(ctx: Context) {
         val classification = ctx.bodyAsClass(PieceClassification::class.java)
-
         val saved = dataStore.upsert(classification)
         ctx.json(saved)
     }
@@ -222,7 +227,8 @@ object QualityService {
             ctx.json(mapOf("error" to "No se encontró el registro"))
             return
         }
-        rule = dataStore.update(rule)
+        val updatedRule = ctx.body<SRule>()
+        rule = dataStore.update(updatedRule)
         ctx.json(rule)
     }
 

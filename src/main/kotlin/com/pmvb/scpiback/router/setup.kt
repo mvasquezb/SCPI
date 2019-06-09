@@ -30,7 +30,13 @@ fun routeSetup(app: Javalin) {
             }
         }
         get("/colors", ProductsService::getAllProductColors)
-        get("/ovens", OvensService::getAllOvens)
+        path("/ovens") {
+            get(OvensService::getAllOvens)
+            path("/:oven-id") {
+                get("/products", OvensService::getAllProductsByWagon)
+                get("/wagon-products/:wagon-id", OvensService::getProductsForWagon)
+            }
+        }
 
         get("/quality-levels", QualityService::getAllQualityLevels)
         path("/defect-areas") {
@@ -60,5 +66,9 @@ fun routeSetup(app: Javalin) {
                 delete(QualityService::deleteRule)
             }
         }
+
+        get("/shift-types", WorkShiftsService::getShiftTypes)
+        get("/reports/classification", ReportsService::getClassificationReport)
+        get("/reports/breaks", ReportsService::getBreaksReport)
     }
 }

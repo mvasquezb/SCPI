@@ -13,4 +13,5 @@ interface IProductFamily : Persistable {
 
     var name: String
     var code: String
+    var image: String
 }

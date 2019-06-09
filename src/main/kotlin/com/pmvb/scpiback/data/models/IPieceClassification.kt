@@ -53,4 +53,7 @@ interface IPieceClassification : Persistable {
 
     @get:OneToMany
     var defects: List<IDefect>
+
+    @get:ManyToOne(cascade = [CascadeAction.NONE])
+    var workshift: IOperatorWorkShift
 }
