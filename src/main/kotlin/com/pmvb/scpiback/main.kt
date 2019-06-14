@@ -14,15 +14,15 @@ fun main(args: Array<String>) {
 
     val app = Javalin.create().apply {
         enableCorsForAllOrigins()
-    }.start(getHerokuAssignedPort())
+    }.start(getAssignedPort())
 
     routeSetup(app)
     Connection.setup()
 }
 
-fun getHerokuAssignedPort(): Int {
+fun getAssignedPort(): Int {
     val herokuPort = System.getenv("PORT")
-    return herokuPort?.toInt() ?: AppConfig["WEB_PORT"].toString().toInt()
+    return herokuPort?.toInt() ?: Config.AppConfig["WEB_PORT"].toString().toInt()
 }
 
 fun configureJsonMapper() {

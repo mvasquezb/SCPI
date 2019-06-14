@@ -2,7 +2,7 @@ package com.pmvb.scpiback.data
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource
 import com.mysql.cj.jdbc.MysqlDataSource
-import com.pmvb.scpiback.AppConfig
+import com.pmvb.scpiback.Config
 import com.pmvb.scpiback.data.Connection.connectionUrl
 import com.pmvb.scpiback.data.Connection.dataSource
 import com.pmvb.scpiback.data.Connection.dataStore
@@ -14,10 +14,17 @@ import io.requery.sql.KotlinConfiguration
 import io.requery.sql.KotlinEntityDataStore
 import io.requery.sql.SchemaModifier
 import io.requery.sql.TableCreationMode
+import java.util.*
 import javax.sql.CommonDataSource
 
 object Connection {
-    val connectionUrl = "jdbc:${AppConfig["DB_DRIVER"]}://${AppConfig["DB_HOST"]}:${AppConfig["DB_PORT"]}"
+    val AppConfig: Properties by lazy {
+        Config.AppConfig
+    }
+    val connectionUrl = "jdbc:" + when (AppConfig["CLEARDB_DATABASE_URL"].toString().isEmpty()) {
+        true -> "${AppConfig["DB_DRIVER"]}://${AppConfig["DB_HOST"]}:${AppConfig["DB_PORT"]}"
+        false -> AppConfig["CLEARDB_DATABASE_URL"]
+    }
 
     lateinit var dataSource: CommonDataSource
 
@@ -56,8 +63,8 @@ object Connection {
 
 fun main(args: Array<String>) {
     println(connectionUrl)
-    println(AppConfig["DB_USERNAME"])
-    println(AppConfig["DB_PASSWORD"])
+    println(Config.AppConfig["DB_USERNAME"])
+    println(Config.AppConfig["DB_PASSWORD"])
     println(dataSource::class.java)
     val result = dataStore.select(Defect::class)()
     println(result)
