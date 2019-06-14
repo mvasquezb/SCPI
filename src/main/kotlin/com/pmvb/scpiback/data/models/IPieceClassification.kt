@@ -11,9 +11,6 @@ interface IPieceClassification : Persistable {
     @get:Generated
     val id: Int
 
-    @get:Column(unique = true)
-    var code: String
-
     var quantity: Int
 
     @get:ManyToOne(cascade = [CascadeAction.NONE])
