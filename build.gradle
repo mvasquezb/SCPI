@@ -12,6 +12,7 @@ buildscript {
 plugins {
     id 'java'
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "com.heroku.sdk.heroku-gradle" version "1.0.4"
 }
 
 dependencyManagement {
@@ -66,5 +67,6 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
+heroku {
+    appName = "scpi-back"
+}
