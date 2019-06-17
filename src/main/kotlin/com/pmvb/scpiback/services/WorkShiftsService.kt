@@ -9,6 +9,7 @@ import com.pmvb.scpiback.data.models.WorkShift
 import io.javalin.Context
 import io.requery.kotlin.eq
 import io.requery.kotlin.invoke
+import java.sql.SQLIntegrityConstraintViolationException
 
 object WorkShiftsService {
     fun createUserWorkShift(ctx: Context) {
@@ -33,8 +34,17 @@ object WorkShiftsService {
             operator = user
             workShift = shiftType
         }
-        shift = dataStore.insert(shift)
-        ctx.json(shift)
+        try {
+            shift = dataStore.insert(shift)
+            ctx.json(shift)
+        } catch (ex: SQLIntegrityConstraintViolationException) {
+            val error = mutableMapOf("error" to ex.message)
+            if (ex.message?.startsWith("Duplicate") == true) {
+                error["error"] = "Ya existe un turno con ese código"
+            }
+            ctx.status(400)
+            ctx.json(error)
+        }
     }
 
     fun getShiftTypes(ctx: Context) {
