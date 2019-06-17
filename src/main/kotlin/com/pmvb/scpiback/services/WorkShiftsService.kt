@@ -33,8 +33,26 @@ object WorkShiftsService {
             operator = user
             workShift = shiftType
         }
-        shift = dataStore.insert(shift)
-        ctx.json(shift)
+        val count = dataStore.count(OperatorWorkShift::class).where(OperatorWorkShift::code eq shift.code ).get().value()
+        if (count == 0) {
+            shift = dataStore.insert(shift)
+            ctx.json(shift)
+            return
+        }
+        val error = mutableMapOf("error" to "Ya existe un turno con ese código")
+        ctx.status(400)
+        ctx.json(error)
+//        try {
+//            shift = dataStore.insert(shift)
+//            ctx.json(shift)
+//        } catch (ex: SQLIntegrityConstraintViolationException) {
+//            val error = mutableMapOf("error" to ex.message)
+//            if (ex.message?.startsWith("Duplicate") == true) {
+//                error["error"] = "Ya existe un turno con ese código"
+//            }
+//            ctx.status(400)
+//            ctx.json(error)
+//        }
     }
 
     fun getShiftTypes(ctx: Context) {
