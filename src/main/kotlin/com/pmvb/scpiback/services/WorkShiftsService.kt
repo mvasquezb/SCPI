@@ -9,6 +9,7 @@ import com.pmvb.scpiback.data.models.WorkShift
 import io.javalin.Context
 import io.requery.kotlin.eq
 import io.requery.kotlin.invoke
+import java.sql.SQLIntegrityConstraintViolationException
 
 object WorkShiftsService {
     fun createUserWorkShift(ctx: Context) {
