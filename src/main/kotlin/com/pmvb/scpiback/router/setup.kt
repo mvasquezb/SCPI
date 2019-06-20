@@ -6,6 +6,9 @@ import io.javalin.apibuilder.ApiBuilder.*
 
 fun routeSetup(app: Javalin) {
     app.routes {
+        head("probe") {
+            println("backend probed")
+        }
         path("login") {
             post(UsersService::login)
         }
