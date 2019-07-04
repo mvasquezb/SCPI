@@ -28,6 +28,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'idea'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
@@ -44,6 +45,24 @@ sourceSets {
     }
 }
 
+task myRun(type: JavaExec) {
+    main = 'com.pmvb.scpiback.MainKt'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task copyWebApp(type: Copy) {
+    from('web/dist')
+    into('src/main/resources/public')
+}
+
+myRun.finalizedBy(copyWebApp, run)
+
+run {
+    main = 'com.pmvb.scpiback.MainKt'
+}
+
+mainClassName = 'com.pmvb.scpiback.MainKt'
+
 jar {
     manifest {
         attributes(
@@ -53,6 +72,10 @@ jar {
 
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    into('src/main/resources/public') {
+        from('web/dist')
     }
 }
 

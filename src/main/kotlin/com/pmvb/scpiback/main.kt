@@ -14,6 +14,7 @@ fun main(args: Array<String>) {
 
     val app = Javalin.create().apply {
         enableCorsForAllOrigins()
+        enableStaticFiles("/public")
     }.start(getAssignedPort())
 
     routeSetup(app)

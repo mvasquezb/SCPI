@@ -1,3 +1,8 @@
 [submodule "modules/es"]
 	path = modules/es
 	url = https://github.com/mvasquezb/scpi-es
+	branch = dev
+[submodule "web"]
+	path = web
+	url = https://github.com/mvasquezb/scpi-front
+    branch = dev

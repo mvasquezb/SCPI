@@ -28,7 +28,6 @@ object Connection {
 
     lateinit var dataSource: CommonDataSource
 
-
     lateinit var configuration: KotlinConfiguration
 
     lateinit var dataStore: KotlinEntityDataStore<Persistable>
